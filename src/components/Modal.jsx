@@ -3,9 +3,9 @@ import React from "react";
 function Modal({ children, onOpen, open }) {
   if (!open) return null;
   return (
-    <div>
+    <div >
       <div onClick={() => onOpen(false)}></div>
-      <div className="absolute  bg-red-400  w-[600px] h-[400px] top-1/2 left-1/2 transition">
+      <div className="absolute top-5 p-4 z-10  left-1/4   bg-gray-100 rounded-lg shadow-2xl  w-[600px] h-[400px]  ">
         {children}
       </div>
     </div>

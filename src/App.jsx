@@ -14,7 +14,7 @@ import AddNewBook from "./components/AddNewBook";
 function App() {
   const gridRef = useRef();
   const [rowData, setRowData] = useState([]);
-
+  
   const columnDefs = [
     { headerName: "ردیف", field: "id", editable: false },
     { headerName: "عنوان", field: "title", editable: true, filter: true },
@@ -95,6 +95,8 @@ function App() {
       });
   };
 
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div>
       <div >
@@ -103,7 +105,7 @@ function App() {
         </div>
         <div className="flex items-center justify-between">
           <div>
-            <button className="bg-blue-400  py-2 px-4 mb-1 rounded-lg text-white">
+            <button onClick={()=>setIsOpen(true)} className="bg-blue-400  py-2 px-4 mb-1 rounded-lg text-white">
               افزودن کتاب جدید
             </button>
           </div>
@@ -135,8 +137,8 @@ function App() {
           />
         </div>
       </div>
-      <Modal open={true}>
-        <AddNewBook />
+      <Modal onOpen={setIsOpen} open={isOpen}>
+        <AddNewBook onOpen={setIsOpen} />
       </Modal>
     </div>
   );
