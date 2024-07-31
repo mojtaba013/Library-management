@@ -1,50 +1,80 @@
 import { XMarkIcon } from "@heroicons/react/16/solid";
+import axios from "axios";
 import React from "react";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
-function AddNewBook({onOpen}) {
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
+const initialState = {
+  title: "",
+  author: "",
+  year: "",
+  countPage: "",
+};
 
-  const handleSubmit = (e) => {
+function AddNewBook({ onOpen }) {
+  const [formData, setFormData] = useState({ initialState });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!title || !author) return null;
-    setTitle("");
-    setAuthor("");
+    try {
+      const response = await axios.post(
+        `https://jsonplaceholder.typicode.com/posts`,
+        formData
+      );
+      toast.success("مشخصات کتاب با موفقیت ثبت شد");
+      setFormData({ ...initialState });
+      // صرفا جهت نمایش و تست
+      //console.log(response.status);
+      // if (response.status === 200)
+      //   toast.success("مشخصات کتاب با موفقیت ثبت شد");
+    } catch (error) {
+      toast.error("متاسفانه خطایی رخ داد.");
+    }
   };
   return (
     <div>
       <div className="flex items-center justify-between mb-6 cursor-pointer">
         <p className="text-lg text-slate-800 font-bold ">مشخصات کتاب جدید</p>
-        <XMarkIcon onClick={() => onOpen(false)} className="size-6 text-blue-500" />
+        <XMarkIcon
+          onClick={() => onOpen(false)}
+          className="size-6 text-blue-500"
+        />
       </div>
 
       <form className="grid gap-6" onSubmit={handleSubmit}>
         <input
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          name="title"
+          value={formData.title}
+          onChange={handleChange}
           type="text"
-          className="w-full p-2 rounded-lg text-lg border-none outline-none"
+          className="w-full p-2 rounded-lg text-lg  outline-none"
           placeholder="عنوان"
         />
         <input
-          value=""
-          onChange={(e) => setAuthor(e.target.value)}
+          name="author"
+          value={formData.author}
+          onChange={handleChange}
           type="text"
           className="w-full p-2 rounded-lg text-lg border-none outline-none"
           placeholder="نویسنده"
         />
         <input
-          value=""
-          onChange={(e) => setAuthor(e.target.value)}
+          name="year"
+          value={formData.year}
+          onChange={handleChange}
           type="text"
           className="w-full p-2 rounded-lg text-lg border-none outline-none"
           placeholder="سال انتشار"
         />
         <input
-          value=""
-          onChange={(e) => setAuthor(e.target.value)}
+          name="countPage"
+          value={formData.countPage}
+          onChange={handleChange}
           type="text"
           className="w-full p-2 rounded-lg text-lg border-none outline-none"
           placeholder="تعداد صفحات"
@@ -56,7 +86,10 @@ function AddNewBook({onOpen}) {
           >
             ذخیره
           </button>
-          <button onClick={() => onOpen(false)} className="rounded-lg p-2 w-full text-white bg-red-500 text-lg">
+          <button
+            onClick={() => onOpen(false)}
+            className="rounded-lg p-2 w-full text-white bg-red-500 text-lg"
+          >
             انصراف
           </button>
         </div>

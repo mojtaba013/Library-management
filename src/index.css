@@ -3,7 +3,50 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: iranyekan;
+  font-style: normal;
+  font-weight: 100;
+  src: url("./font/iranyekan/woff2/IRANYekanWebThin.woff2"); 
+}
 
+@font-face {
+  font-family: iranyekan;
+  font-style: normal;
+  font-weight: 300;
+  src: url("./font/iranyekan/woff2/IRANYekanWebLight.woff2"); 
+}
+
+@font-face {
+  font-family: iranyekan;
+  font-style: normal;
+  font-weight: 400;
+  src: url("./font/iranyekan/woff2/IRANYekanWebRegular.woff2"); 
+}
+
+@font-face {
+  font-family: iranyekan;
+  font-style: normal;
+  font-weight: 500;
+  src: url("./font/iranyekan/woff2/IRANYekanWebMedium.woff2");
+ 
+}
+
+@font-face {
+  font-family: iranyekan;
+  font-style: normal;
+  font-weight: 700;
+  src: url("./font/iranyekan/woff2/IRANYekanWebBold.woff2");
+ 
+}
+
+@font-face {
+  font-family: iranyekan;
+  font-style: normal;
+  font-weight: 800;
+  src: url("./font/iranyekan/woff2/IRANYekanWebExtraBold.woff2");
+ 
+}
 
 
 

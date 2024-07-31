@@ -10,24 +10,31 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Modal from "./components/Modal";
 import AddNewBook from "./components/AddNewBook";
+import { TrashIcon } from "@heroicons/react/24/outline";
 
 function App() {
   const gridRef = useRef();
   const [rowData, setRowData] = useState([]);
-  
+
   const columnDefs = [
     { headerName: "ردیف", field: "id", editable: false },
     { headerName: "عنوان", field: "title", editable: true, filter: true },
-    { headerName: "نویسنده", field: "author", editable: true, filter: true },
+    { headerName: "نویسنده", field: "body", editable: true, filter: true },
+    { headerName: "سال انتشار", field: "", editable: true, filter: true },
+    { headerName: "تعداد صفحات", field: "", editable: true, filter: true },
     {
-      headerName: "عملیات",
+      headerName: "حذف",
       cellRenderer: (params) => (
-        <button
-          className="bg-red-200 rounded-lg px-6"
+        // <button
+        //   className="bg-red-200 rounded-lg px-6"
+        //   onClick={() => deleteRow(params.data.id)}
+        // >
+        //   حذف
+        // </button>
+        <TrashIcon
           onClick={() => deleteRow(params.data.id)}
-        >
-          حذف
-        </button>
+          className="flex items-center justify-center size-6 cursor-pointer text-red-500 mt-2"
+        />
       ),
     },
   ];
@@ -41,7 +48,7 @@ function App() {
 
   const getAllData = async () => {
     const res = await axios.get("https://jsonplaceholder.typicode.com/posts");
-    //console.log(data);
+    console.log(res.data);
     setRowData(res.data);
   };
 
@@ -99,22 +106,25 @@ function App() {
 
   return (
     <div>
-      <div >
+      <div className="">
         <div className="border-b-2 border-gray-300 mb-4 pb-2">
-          <p className="font-bold text-lg">کتابخانه</p>
+          <p className="font-bold text-2xl">کتابخانه</p>
         </div>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mb-2">
           <div>
-            <button onClick={()=>setIsOpen(true)} className="bg-blue-400  py-2 px-4 mb-1 rounded-lg text-white">
+            <button
+              onClick={() => setIsOpen((isOpen) => !isOpen)}
+              className="bg-blue-400  py-2 px-4  rounded-lg text-white"
+            >
               افزودن کتاب جدید
             </button>
           </div>
 
-          <div className="example-wrapper">
-            <div className="example-header">
-              <span className="font-medium text-xl">جستجو:</span>
+          <div className="">
+            <div className="flex gap-x-1 items-center">
+              <span className="font-medium text-xl ">جستجو:</span>
               <input
-                className="rounded-lg outline-none p-2"
+                className="rounded-lg outline-none p-2 w-[300px]"
                 type="text"
                 id="filter-text-box"
                 placeholder="جستجو..."
