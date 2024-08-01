@@ -37,6 +37,7 @@ function App() {
         />
       ),
     },
+    
   ];
 
   //const containerStyle = useMemo(() => ({ width: "100%", height: 500 }), []);
@@ -105,7 +106,7 @@ function App() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div>
+    <>
       <div className="">
         <div className="border-b-2 border-gray-300 mb-4 pb-2">
           <p className="font-bold text-2xl">کتابخانه</p>
@@ -150,7 +151,7 @@ function App() {
       <Modal onOpen={setIsOpen} open={isOpen}>
         <AddNewBook onOpen={setIsOpen} />
       </Modal>
-    </div>
+    </>
   );
 }
 
